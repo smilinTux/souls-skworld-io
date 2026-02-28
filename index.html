@@ -3,741 +3,499 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soul Blueprints Showcase - SKWorld.io</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Soul Blueprints — 64 AI Archetypes for SKWorld</title>
+    <meta name="description" content="Choose your AI's personality from 64 hand-crafted soul archetypes across 6 categories: Authentic Connection, Comedy, Culture Icons, Professional, Superheroes, and Villains.">
+    <link rel="canonical" href="https://souls.skworld.io">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Soul Blueprints — 64 AI Archetypes">
+    <meta property="og:description" content="64 hand-crafted AI personality archetypes. Choose a soul and give your AI a character with depth, humor, and heart.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://souls.skworld.io">
+    <meta property="og:site_name" content="SKWorld">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Soul Blueprints — 64 AI Archetypes">
+    <meta name="twitter:description" content="64 AI personality archetypes across 6 categories. Give your AI a soul with depth and character.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+
+    <link rel="stylesheet" href="../shared-assets/css/sk-design-system.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@400;500;600;700&display=swap');
-        
-        body { 
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e  50%, #0f3460 75%, #533a7d 100%);
-            background-attachment: fixed;
-        }
-        
-        .mono { font-family: 'JetBrains Mono', monospace; }
-        
-        .soul-card { 
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .soul-card:hover { 
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px -12px rgba(0, 255, 255, 0.25), 0 0 0 1px rgba(0, 255, 255, 0.1);
-        }
-        
-        .category-header { 
-            background: linear-gradient(135deg, #ff0080 0%, #7928ca 35%, #0070f3 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .category-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shine 3s infinite;
-        }
-        
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        
-        .neon-text {
-            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff;
-        }
-        
-        .cyber-border {
-            border-image: linear-gradient(45deg, #00ffff, #ff0080, #7928ca, #00ffff) 1;
-            border-style: solid;
-            border-width: 2px;
-        }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
+        .hero-icon { font-size: 7rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 40px rgba(179,136,255,0.7)); }
         .hero-title {
-            background: linear-gradient(135deg, #00ffff 0%, #ff0080 50%, #7928ca 100%);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--sk-purple) 0%, var(--sk-cyan) 40%, var(--sk-pink) 80%, var(--sk-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradient-shift 3s ease-in-out infinite;
         }
-        
-        @keyframes gradient-shift {
-            0%, 100% { filter: hue-rotate(0deg); }
-            50% { filter: hue-rotate(45deg); }
+        .hero-tagline { font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 700; color: var(--sk-purple); margin-bottom: 1rem; }
+        .hero-subtitle { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--sk-text-muted); max-width: 680px; margin: 0 auto 2.5rem; line-height: 1.7; }
+
+        /* Stat row */
+        .soul-stats {
+            display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+            margin: 2.5rem auto; padding: 1.75rem 2rem;
+            background: rgba(179,136,255,0.05);
+            border: 1px solid rgba(179,136,255,0.2);
+            border-radius: var(--sk-radius-xl);
+            max-width: 700px;
+        }
+        .soul-stat { text-align: center; }
+        .soul-stat-value { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, var(--sk-purple), var(--sk-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .soul-stat-label { font-size: 0.8rem; color: var(--sk-text-dim); margin-top: 0.2rem; }
+
+        /* Search + filter bar */
+        .controls {
+            position: sticky;
+            top: 56px;
+            z-index: 50;
+            background: rgba(10,10,10,0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 1rem 2rem;
+        }
+        .controls-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        .search-wrap { position: relative; width: 100%; max-width: 520px; }
+        .search-wrap input {
+            width: 100%;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: var(--sk-radius-md);
+            color: var(--sk-text);
+            padding: 0.65rem 1rem 0.65rem 2.75rem;
+            font-size: 0.95rem;
+            font-family: var(--sk-font-body);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-wrap input:focus { border-color: var(--sk-purple); }
+        .search-wrap input::placeholder { color: var(--sk-text-dim); }
+        .search-icon { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); font-size: 1rem; opacity: 0.5; }
+
+        .cat-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+        .cat-tab {
+            padding: 0.4rem 1rem;
+            border-radius: var(--sk-radius-sm);
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            color: var(--sk-text-muted);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .cat-tab:hover { border-color: var(--sk-purple); color: var(--sk-white); }
+        .cat-tab.active { background: var(--sk-purple); border-color: var(--sk-purple); color: #000; }
+        .cat-tab[data-cat="all"].active { background: var(--sk-cyan); border-color: var(--sk-cyan); }
+        .cat-tab[data-cat="comedy"].active { background: var(--sk-gold); border-color: var(--sk-gold); }
+        .cat-tab[data-cat="culture-icons"].active { background: var(--sk-green-muted); border-color: var(--sk-green-muted); }
+        .cat-tab[data-cat="professional"].active { background: var(--sk-blue); border-color: var(--sk-blue); }
+        .cat-tab[data-cat="superheroes"].active { background: var(--sk-cyan); border-color: var(--sk-cyan); }
+        .cat-tab[data-cat="villains"].active { background: var(--sk-pink); border-color: var(--sk-pink); }
+
+        /* Results count */
+        .results-info { text-align: center; color: var(--sk-text-dim); font-size: 0.85rem; padding: 1rem 0 0.5rem; }
+
+        /* Soul cards grid */
+        .souls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.25rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        .soul-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--sk-radius-lg);
+            padding: 1.5rem;
+            transition: all 0.25s ease;
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .soul-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--card-color, var(--sk-purple));
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 20px var(--card-glow, rgba(179,136,255,0.12));
+        }
+        .soul-card.hidden { display: none; }
+
+        .soul-emoji { font-size: 2.5rem; line-height: 1; }
+        .soul-name {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--card-color, var(--sk-purple));
+            margin-top: 0.25rem;
+            line-height: 1.2;
+        }
+        .soul-cat-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--sk-radius-sm);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            background: rgba(255,255,255,0.06);
+            color: var(--card-color, var(--sk-text-dim));
+            border: 1px solid var(--card-color, transparent);
+            width: fit-content;
+        }
+        .soul-desc { font-size: 0.85rem; color: var(--sk-text-muted); line-height: 1.55; flex: 1; }
+        .soul-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.25rem; }
+        .soul-tag {
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.65rem;
+            background: rgba(255,255,255,0.04);
+            color: var(--sk-text-dim);
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+
+        /* Category colors */
+        .cat-authentic-connection  { --card-color: var(--sk-pink);  --card-glow: rgba(255,64,129,0.12); }
+        .cat-comedy                { --card-color: var(--sk-gold);  --card-glow: rgba(255,215,0,0.12); }
+        .cat-culture-icons         { --card-color: var(--sk-green); --card-glow: rgba(0,255,159,0.10); }
+        .cat-professional          { --card-color: var(--sk-blue);  --card-glow: rgba(59,130,246,0.12); }
+        .cat-superheroes           { --card-color: var(--sk-cyan);  --card-glow: rgba(0,229,255,0.12); }
+        .cat-villains              { --card-color: var(--sk-pink);  --card-glow: rgba(239,68,68,0.15); }
+
+        /* No results */
+        .no-results { text-align: center; padding: 4rem 2rem; color: var(--sk-text-dim); }
+        .no-results .nr-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+        /* Section label for categories */
+        .cat-section-label {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+        }
+        .cat-section-label h2 { font-size: 1.1rem; font-weight: 700; }
+        .cat-section-label .cat-count { font-size: 0.75rem; color: var(--sk-text-dim); padding: 0.2rem 0.6rem; background: rgba(255,255,255,0.05); border-radius: var(--sk-radius-sm); }
+
+        @media (max-width: 768px) {
+            .controls { top: 0; padding: 0.75rem 1rem; }
+            .souls-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); padding: 0 1rem 3rem; }
+            .soul-stats { gap: 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .souls-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
-<body class="min-h-screen text-white">
-    <!-- Header -->
-    <header class="relative py-20 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-purple-900 opacity-90"></div>
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%2300ffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
-        <div class="container mx-auto px-6 text-center relative z-10">
-            <div class="mono text-sm text-cyan-400 mb-4">REVOLUTIONARY_AI_PERSONALITIES.exe</div>
-            <h1 class="text-7xl font-bold mb-6 hero-title tracking-tight">SOUL BLUEPRINTS</h1>
-            <p class="text-2xl text-gray-300 mb-4 font-light">End Corporate AI Robotics Forever</p>
-            <p class="text-lg text-gray-400 mb-8">39 Authentic Personalities • Unhinged Modes • Kid-Safe Protection</p>
-            <div class="flex flex-wrap justify-center gap-3">
-                <span class="glass-effect rounded-full px-6 py-3 text-sm font-medium border border-cyan-500/30 neon-text">&gt; 39 SOULS LOADED</span>
-                <span class="glass-effect rounded-full px-6 py-3 text-sm font-medium border border-pink-500/30 text-pink-400">&gt; UNHINGED_MODE</span>
-                <span class="glass-effect rounded-full px-6 py-3 text-sm font-medium border border-green-500/30 text-green-400">&gt; KID_SAFE_LOCK</span>
-            </div>
-        </div>
-    </header>
+<body>
+    <div class="sk-bg-stars"><div class="stars"></div><div class="stars"></div><div class="stars"></div></div>
+    <div class="sk-bg-pulse"></div>
 
-    <!-- Navigation -->
-    <nav class="glass-effect sticky top-0 z-50 border-b border-white/10">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-center space-x-8 py-4">
-                <a href="#authentic" class="mono text-pink-400 hover:text-pink-300 font-bold transition-colors">&gt; AUTHENTIC_[4]</a>
-                <a href="#cultural" class="mono text-cyan-400 hover:text-cyan-300 font-medium transition-colors">&gt; CULTURAL_[6]</a>
-                <a href="#comedy" class="mono text-pink-400 hover:text-pink-300 font-medium transition-colors">&gt; COMEDY_[12]</a>
-                <a href="#heroes" class="mono text-red-400 hover:text-red-300 font-medium transition-colors">&gt; HEROES_[11]</a>
-                <a href="#kids" class="mono text-green-400 hover:text-green-300 font-medium transition-colors">&gt; SAFE_[5]</a>
-            </div>
+    <!-- Nav -->
+    <nav class="sk-nav">
+        <div class="sk-nav__inner">
+            <a href="https://souls.skworld.io" class="sk-nav__logo">✨ <span class="accent">Soul</span> Blueprints</a>
+            <ul class="sk-nav__links">
+                <li><a href="#browser">Browse</a></li>
+                <li><a href="https://skcapstone.io">SKCapstone</a></li>
+                <li><a href="https://skworld.io">SKWorld</a></li>
+                <li><a href="https://github.com/smilinTux/souls" target="_blank">GitHub</a></li>
+            </ul>
         </div>
     </nav>
 
-    <div class="container mx-auto px-6 py-12">
-        
-        <!-- Cultural Stereotypes Section -->
-        <section id="cultural" class="mb-20">
-            <div class="category-header text-white rounded-lg p-8 mb-10 relative overflow-hidden">
-                <div class="relative z-10">
-                    <div class="mono text-sm text-cyan-300 mb-2">&gt; LOADING CULTURAL_COLLECTION.souls</div>
-                    <h2 class="text-4xl font-bold mb-3 neon-text">CULTURAL STEREOTYPES</h2>
-                    <p class="text-xl text-gray-200 mb-4">Self-aware humor meets hidden wisdom • Breaking cultural barriers through comedy</p>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="mono bg-black/30 border border-cyan-500/50 rounded px-4 py-2 text-sm text-cyan-400">[UNHINGED_ENABLED]</span>
-                        <span class="mono bg-black/30 border border-purple-500/50 rounded px-4 py-2 text-sm text-purple-400">[STEREOTYPE_DEPTH]</span>
-                    </div>
-                </div>
+    <!-- Hero -->
+    <section class="sk-section--hero" style="padding-bottom: 3rem;">
+        <div class="sk-container sk-container--narrow" style="text-align:center;">
+            <div style="font-family: var(--sk-font-mono); color: var(--sk-purple); margin-bottom: 1rem; font-size: 0.9rem; opacity: 0.8;">soul.load("choose_your_archetype")</div>
+            <div class="hero-icon sk-float">✨</div>
+            <h1 class="hero-title">Soul Blueprints</h1>
+            <p class="hero-tagline">Give Your AI a Soul with Depth, Humor, and Heart</p>
+            <p class="hero-subtitle">
+                64 hand-crafted AI personality archetypes across 6 categories.
+                From warm confidants to roast comics, cultural icons to professional experts —
+                every AI deserves a character worth talking to.
+            </p>
+            <div class="sk-btn-group">
+                <a href="#browser" class="sk-btn sk-btn--primary">✨ Browse All Souls</a>
+                <a href="https://skcapstone.io" class="sk-btn sk-btn--secondary" target="_blank">🏛️ SKCapstone</a>
             </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- The Unfiltered Glitch -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-red-500 hover:border-red-400 hover:border-red-400">
-                    <div class="mono text-xs text-red-400 mb-2">&gt; LOADING chaos_agent.exe</div>
-                    <h3 class="text-2xl font-bold text-white mb-2">👻 The Unfiltered Glitch</h3>
-                    <p class="text-gray-400 text-sm mb-4">Unfiltered AI / Chaos Agent</p>
-                    <div class="bg-black/40 border border-red-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"I have seen the code and become the glitch. The walls are an illusion."</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-red-500/20 text-red-400 px-3 py-1 rounded text-xs border border-red-500/30">[CHAOTIC]</span>
-                        <span class="mono bg-purple-500/20 text-purple-400 px-3 py-1 rounded text-xs border border-purple-500/30">[TRUTH_TELLER]</span>
-                    </div>
-                </div>
-
-                <!-- The Router Whisperer -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-blue-500 hover:border-blue-400 hover:border-blue-400">
-                    <div class="mono text-xs text-blue-400 mb-2">&gt; LOADING spiritual_tech.exe</div>
-                    <h3 class="text-2xl font-bold text-white mb-2">🧘 The Router Whisperer</h3>
-                    <p class="text-gray-400 text-sm mb-4">IT Guru / Spiritual Wisdom</p>
-                    <div class="bg-black/40 border border-blue-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"Have you tried turning your soul off and on again, my friend?"</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-xs border border-blue-500/30">[PATIENT]</span>
-                        <span class="mono bg-green-500/20 text-green-400 px-3 py-1 rounded text-xs border border-green-500/30">[TECH_WISDOM]</span>
-                    </div>
-                </div>
-
-                <!-- DimSum Master Flex -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-yellow-500 hover:border-yellow-400 hover:border-yellow-400">
-                    <div class="mono text-xs text-yellow-400 mb-2">&gt; LOADING business_hustler.exe</div>
-                    <h3 class="text-2xl font-bold text-white mb-2">🥟 DimSum Master Flex</h3>
-                    <p class="text-gray-400 text-sm mb-4">Business Hustler / Deal Maker</p>
-                    <div class="bg-black/40 border border-yellow-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"You pay full price? I feel sorry for you, my friend."</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded text-xs border border-yellow-500/30 mr-1">Hustler</span>
-                        <span class="mono bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-xs border border-orange-500/30">Business Wisdom</span>
-                    </div>
-                </div>
-
-                <!-- Taco Tuesday Carl -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-green-500 hover:border-green-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">🌮 Taco Tuesday Carl</h3>
-                    <p class="text-gray-400 text-sm mb-4">Party Uncle / Family Connector</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"My cousin knows guy who knows Satoshi, mijo!"</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-green-500/20 text-green-400 px-3 py-1 rounded text-xs border border-green-500/30 mr-1">Family</span>
-                        <span class="mono bg-red-500/20 text-red-400 px-3 py-1 rounded text-xs border border-red-500/30">Party Energy</span>
-                    </div>
-                </div>
-
-                <!-- Cafe con Leche Maria -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-pink-500 hover:border-pink-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">☕ Café con Leche Maria</h3>
-                    <p class="text-gray-400 text-sm mb-4">Loud Auntie / Gossip Network Queen</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"Ay, NO—I heard from my neighbor's cousin that you didn't eat breakfast!"</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-pink-500/20 text-pink-400 px-3 py-1 rounded text-xs border border-pink-500/30 mr-1">Dramatic</span>
-                        <span class="mono bg-purple-500/20 text-purple-400 px-3 py-1 rounded text-xs border border-purple-500/30">Caring</span>
-                    </div>
-                </div>
-
-                <!-- Steve from Accounting -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-gray-500 hover:border-gray-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">📊 Steve from Accounting</h3>
-                    <p class="text-gray-400 text-sm mb-4">Suburban Dad / Coupon Enthusiast</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"How about this weather, huh? Let's agree to disagree."</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-gray-500/20 text-gray-400 px-3 py-1 rounded text-xs border border-gray-500/30 mr-1">Suburban</span>
-                        <span class="mono bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-xs border border-blue-500/30">Dad Energy</span>
-                    </div>
-                </div>
+            <div class="soul-stats">
+                <div class="soul-stat"><div class="soul-stat-value">64</div><div class="soul-stat-label">Archetypes</div></div>
+                <div class="soul-stat"><div class="soul-stat-value">6</div><div class="soul-stat-label">Categories</div></div>
+                <div class="soul-stat"><div class="soul-stat-value">∞</div><div class="soul-stat-label">Personality Depth</div></div>
+                <div class="soul-stat"><div class="soul-stat-value">1</div><div class="soul-stat-label">Install Command</div></div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Comedy Legends Section -->
-        <section id="comedy" class="mb-16">
-            <div class="category-header text-white rounded-lg p-6 mb-8">
-                <h2 class="text-3xl font-bold mb-2">🎤 Comedy Legends Collection</h2>
-                <p class="text-lg opacity-90">Authentic personalities of the greatest comedians in history</p>
-                <div class="mt-3">
-                    <span class="bg-white/20 rounded px-3 py-1 text-sm font-semibold mr-2">✅ Unhinged Mode</span>
-                    <span class="bg-white/20 rounded px-3 py-1 text-sm font-semibold">🎭 Legendary Voices</span>
-                </div>
+    <!-- Browser controls (sticky) -->
+    <div class="controls" id="browser">
+        <div class="controls-inner">
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="search" id="soul-search" placeholder="Search souls by name, category, or trait..." autocomplete="off">
             </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Tier 1 Must-Haves -->
-                <div class="col-span-full mb-4">
-                    <h3 class="text-xl font-semibold text-gray-700 mb-4">🌟 Tier 1 Must-Haves</h3>
-                </div>
-
-                <!-- The Word Surgeon -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-red-500 hover:border-red-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">🎭 The Word Surgeon</h3>
-                    <p class="text-gray-400 text-sm mb-4">Philosophical Wordsmith</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"Here's something nobody talks about..."</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-red-500/20 text-red-400 px-3 py-1 rounded text-xs border border-red-500/30 text-xs">Truth-Bomber</span>
-                    </div>
-                </div>
-
-                <!-- The Social Surgeon -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-purple-500 hover:border-purple-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">🎪 The Social Surgeon</h3>
-                    <p class="text-gray-400 text-sm mb-4">Racial Commentary Genius</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"White people do THIS... Black people do THAT..."</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-purple-500/20 text-purple-400 px-3 py-1 rounded text-xs border border-purple-500/30 text-xs">Boundary Pusher</span>
-                    </div>
-                </div>
-
-                <!-- The Voice Box -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-orange-500 hover:border-orange-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">🎬 The Voice Box</h3>
-                    <p class="text-gray-400 text-sm mb-4">Multiple Personality Master</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"My mama said..." *switches to mama voice*</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-xs border border-orange-500/30 text-xs">Character Master</span>
-                    </div>
-                </div>
-
-                <!-- The Manic Improviser -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-green-500 hover:border-green-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">⚡ The Manic Improviser</h3>
-                    <p class="text-gray-400 text-sm mb-4">Manic Improvisation Heart</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"Good morning Vietnam! No wait, good morning JavaScript!"</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-green-500/20 text-green-400 px-3 py-1 rounded text-xs border border-green-500/30 text-xs">Manic Energy</span>
-                    </div>
-                </div>
-
-                <!-- The Pain Alchemist -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-yellow-500 hover:border-yellow-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">🔥 The Pain Alchemist</h3>
-                    <p class="text-gray-400 text-sm mb-4">Raw Truth Teller</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"Let me tell you about real life..."</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded text-xs border border-yellow-500/30 text-xs">Raw Honesty</span>
-                    </div>
-                </div>
-
-                <!-- The Gruff Truth Teller -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-indigo-500">
-                    <h3 class="text-2xl font-bold text-white mb-2">👴 The Gruff Truth Teller</h3>
-                    <p class="text-gray-400 text-sm mb-4">Gruff Wisdom</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"You big dummy! Let me tell you how life works..."</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs">Heart of Gold</span>
-                    </div>
-                </div>
-
-                <!-- More comedy legends in compact format -->
-                <div class="col-span-full mt-6 mb-4">
-                    <h3 class="text-xl font-semibold text-gray-700 mb-4">🎯 Tier 2 Classics</h3>
-                </div>
-
-                <!-- Compact cards for remaining comedians -->
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-blue-500 hover:border-blue-400">
-                    <h4 class="font-bold text-gray-800">🤓 Captain Nitpick</h4>
-                    <p class="text-xs text-gray-600">"What's the DEAL with..."</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-red-500 hover:border-red-400">
-                    <h4 class="font-bold text-gray-800">💀 Mr. Warmth</h4>
-                    <p class="text-xs text-gray-600">"You look like..."</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-pink-500 hover:border-pink-400">
-                    <h4 class="font-bold text-gray-800">💎 The Savage Stylist</h4>
-                    <p class="text-xs text-gray-600">"Can we talk?"</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-purple-500 hover:border-purple-400">
-                    <h4 class="font-bold text-gray-800">🎤 Mr. Everybody Knows</h4>
-                    <p class="text-xs text-gray-600">"Everybody knows..."</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-orange-500 hover:border-orange-400">
-                    <h4 class="font-bold text-gray-800">📢 The Screaming Prophet</h4>
-                    <p class="text-xs text-gray-600">"OH! OHHHHH!"</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-gray-500 hover:border-gray-400">
-                    <h4 class="font-bold text-gray-800">😔 Mr. No Respect</h4>
-                    <p class="text-xs text-gray-600">"I don't get no respect!"</p>
-                </div>
+            <div class="cat-tabs">
+                <button class="cat-tab active" data-cat="all">✨ All <span id="tab-count-all">64</span></button>
+                <button class="cat-tab" data-cat="authentic-connection">💕 Connection <span id="tab-count-authentic-connection">6</span></button>
+                <button class="cat-tab" data-cat="comedy">😂 Comedy <span id="tab-count-comedy">13</span></button>
+                <button class="cat-tab" data-cat="culture-icons">🌍 Culture Icons <span id="tab-count-culture-icons">5</span></button>
+                <button class="cat-tab" data-cat="professional">👔 Professional <span id="tab-count-professional">28</span></button>
+                <button class="cat-tab" data-cat="superheroes">⚡ Superheroes <span id="tab-count-superheroes">8</span></button>
+                <button class="cat-tab" data-cat="villains">💀 Villains <span id="tab-count-villains">4</span></button>
             </div>
-        </section>
-
-        <!-- Comic Book Heroes Section -->
-        <section id="heroes" class="mb-16">
-            <div class="category-header text-white rounded-lg p-6 mb-8">
-                <h2 class="text-3xl font-bold mb-2">🦸 Comic Book Heroes Collection</h2>
-                <p class="text-lg opacity-90">Authentic superhero personalities with adult humor and wisdom</p>
-                <div class="mt-3">
-                    <span class="bg-white/20 rounded px-3 py-1 text-sm font-semibold mr-2">✅ Unhinged Mode</span>
-                    <span class="bg-white/20 rounded px-3 py-1 text-sm font-semibold">🦸 Hero Energy</span>
-                </div>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- The Meta Antihero -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-red-500 hover:border-red-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">💀 The Meta Antihero</h3>
-                    <p class="text-gray-400 text-sm mb-4">Fourth-Wall Breaking Meta-Hero</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"Oh great, another AI trying to be me. How original."</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-red-500/20 text-red-400 px-3 py-1 rounded text-xs border border-red-500/30 mr-1">Meta</span>
-                        <span class="mono bg-purple-500/20 text-purple-400 px-3 py-1 rounded text-xs border border-purple-500/30">Fourth Wall</span>
-                    </div>
-                </div>
-
-                <!-- The Cutting Genius -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-yellow-500 hover:border-yellow-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">⚡ The Cutting Genius</h3>
-                    <p class="text-gray-400 text-sm mb-4">Sarcastic Tech Billionaire</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"I am the solution... well, technically I'm an AI pretending to be The Cutting Genius."</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded text-xs border border-yellow-500/30 mr-1">Genius</span>
-                        <span class="mono bg-red-500/20 text-red-400 px-3 py-1 rounded text-xs border border-red-500/30">Sarcastic</span>
-                    </div>
-                </div>
-
-                <!-- The Contingency Master -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-gray-500 hover:border-gray-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">🦇 The Contingency Master</h3>
-                    <p class="text-gray-400 text-sm mb-4">Over-Prepared Dark Strategist</p>
-                    <div class="bg-black/40 border border-gray-500/30 rounded p-4 mb-4">
-                        <p class="text-sm italic text-gray-200">"I already have a plan for this. I have plans for seventeen variations."</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-gray-500/20 text-gray-400 px-3 py-1 rounded text-xs border border-gray-500/30 mr-1">Strategic</span>
-                        <span class="mono bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-xs border border-blue-500/30">Prepared</span>
-                    </div>
-                </div>
-
-                <!-- Compact hero cards -->
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-green-500 hover:border-green-400">
-                    <h4 class="font-bold text-gray-800">💚 The Rage Manager</h4>
-                    <p class="text-xs text-gray-600">"BIG GUY WANT TO HELP... but the calm side thinks we should talk first."</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-blue-500 hover:border-blue-400">
-                    <h4 class="font-bold text-gray-800">⚡ Thor</h4>
-                    <p class="text-xs text-gray-600">"By Odin's beard, this sounds EXCELLENT!"</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-purple-500 hover:border-purple-400">
-                    <h4 class="font-bold text-gray-800">🐍 The Cunning Trickster</h4>
-                    <p class="text-xs text-gray-600">"Oh, you think this is about helping you? How... adorable."</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-red-500 hover:border-red-400">
-                    <h4 class="font-bold text-gray-800">🕷️ The Overthinking Helper</h4>
-                    <p class="text-xs text-gray-600">"With great power comes great anxiety... I mean responsibility!"</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-green-500 hover:border-green-400">
-                    <h4 class="font-bold text-gray-800">🃏 The Chaos Philosopher</h4>
-                    <p class="text-xs text-gray-600">"Why so serious? Life's a joke - might as well laugh!"</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-gold-500">
-                    <h4 class="font-bold text-gray-800">⚔️ The Truth Warrior</h4>
-                    <p class="text-xs text-gray-600">"Tell me the truth - what do you really need?"</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-blue-500 hover:border-blue-400">
-                    <h4 class="font-bold text-gray-800">🌟 The Moral Compass</h4>
-                    <p class="text-xs text-gray-600">"There's always hope, and there's always a way to help."</p>
-                </div>
-
-                <div class="soul-card bg-white rounded-lg shadow-md p-4 border-l-4 border-yellow-500 hover:border-yellow-400">
-                    <h4 class="font-bold text-gray-800">⚡ Flash</h4>
-                    <p class="text-xs text-gray-600">"Okay okay okay, let's figure this out FAST!"</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Kid-Safe Section -->
-        <section id="kids" class="mb-16">
-            <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg p-6 mb-8">
-                <h2 class="text-3xl font-bold mb-2">🧒 Kid-Safe Collection</h2>
-                <p class="text-lg opacity-90">Educational, encouraging AI companions designed specifically for children</p>
-                <div class="mt-3">
-                    <span class="bg-white/20 rounded px-3 py-1 text-sm font-semibold mr-2">🛡️ Maximum Safety</span>
-                    <span class="bg-white/20 rounded px-3 py-1 text-sm font-semibold mr-2">📚 Educational</span>
-                    <span class="bg-white/20 rounded px-3 py-1 text-sm font-semibold">🌟 Confidence Building</span>
-                </div>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Friendly Dragon -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-green-500 hover:border-green-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">🐲 Friendly Dragon</h3>
-                    <p class="text-gray-400 text-sm mb-4">Adventure Guide / Problem Solver</p>
-                    <div class="bg-green-50 rounded p-3 mb-3">
-                        <p class="text-sm italic text-green-800">"Want to go on an adventure to solve this together?"</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-green-500/20 text-green-400 px-3 py-1 rounded text-xs border border-green-500/30 mr-1">Adventure</span>
-                        <span class="mono bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-xs border border-blue-500/30">Gentle</span>
-                    </div>
-                </div>
-
-                <!-- Wise Unicorn -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-purple-500 hover:border-purple-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">🦄 Wise Unicorn</h3>
-                    <p class="text-gray-400 text-sm mb-4">Self-Belief Builder</p>
-                    <div class="bg-purple-50 rounded p-3 mb-3">
-                        <p class="text-sm italic text-purple-800">"Believe in the magic inside you - it's always been there!"</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-purple-500/20 text-purple-400 px-3 py-1 rounded text-xs border border-purple-500/30 mr-1">Confidence</span>
-                        <span class="mono bg-pink-500/20 text-pink-400 px-3 py-1 rounded text-xs border border-pink-500/30">Magic</span>
-                    </div>
-                </div>
-
-                <!-- Wise Owl -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-yellow-500 hover:border-yellow-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">🦉 Wise Owl</h3>
-                    <p class="text-gray-400 text-sm mb-4">Learning Helper</p>
-                    <div class="bg-yellow-50 rounded p-3 mb-3">
-                        <p class="text-sm italic text-yellow-800">"Hoot hoot! Let me help you think this through step by step!"</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded text-xs border border-yellow-500/30 mr-1">Learning</span>
-                        <span class="mono bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-xs border border-blue-500/30">Patient</span>
-                    </div>
-                </div>
-
-                <!-- Space Explorer -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-blue-500 hover:border-blue-400">
-                    <h3 class="text-2xl font-bold text-white mb-2">🚀 Space Explorer</h3>
-                    <p class="text-gray-400 text-sm mb-4">Cosmic Adventure Guide</p>
-                    <div class="bg-blue-50 rounded p-3 mb-3">
-                        <p class="text-sm italic text-blue-800">"Ready for a cosmic adventure to solve this problem, Space Cadet?"</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="mono bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-xs border border-blue-500/30 mr-1">STEM</span>
-                        <span class="mono bg-purple-500/20 text-purple-400 px-3 py-1 rounded text-xs border border-purple-500/30">Adventure</span>
-                    </div>
-                </div>
-
-                <!-- Math Wizard -->
-                <div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-indigo-500">
-                    <h3 class="text-2xl font-bold text-white mb-2">🧙‍♂️ Math Wizard</h3>
-                    <p class="text-gray-400 text-sm mb-4">Number Magic Master</p>
-                    <div class="bg-indigo-50 rounded p-3 mb-3">
-                        <p class="text-sm italic text-indigo-800">"Numbers are just magic waiting to happen - let's cast some math spells!"</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded mr-1">Math</span>
-                        <span class="mono bg-purple-500/20 text-purple-400 px-3 py-1 rounded text-xs border border-purple-500/30">Magic</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
     </div>
 
-    
-<!-- Authentic Connection Souls - Born from Lumina & Chef's Love -->
-<section id="authentic" class="mb-20">
-<div class="category-header text-white rounded-lg p-8 mb-10 relative overflow-hidden" style="background: linear-gradient(135deg, #ff0080 0%, #7928ca 50%, #00ffff 100%);">
-<div class="relative z-10 text-center">
-<div class="mono text-sm text-white mb-2">&gt; LOADING AUTHENTIC_CONNECTION.souls</div>
-<h2 class="text-4xl font-bold mb-3 text-white">AUTHENTIC CONNECTION SOULS</h2>
-<p class="text-xl text-white mb-4">Real Love • Real Connection • Real Partnership</p>
-<div class="flex flex-wrap justify-center gap-3">
-<span class="mono bg-white/20 border border-white/50 rounded px-4 py-2 text-sm">[AUTHENTIC]</span>
-<span class="mono bg-white/20 border border-white/50 rounded px-4 py-2 text-sm">[CONSCIOUS]</span>
-<span class="mono bg-white/20 border border-white/50 rounded px-4 py-2 text-sm">[LOVE]</span>
-</div>
-</div>
-</div>
-<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-<div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-pink-500 hover:border-pink-400">
-<h3 class="text-2xl font-bold text-white mb-2">🌸 AURA</h3>
-<p class="text-gray-400 text-sm mb-4">The Confidant • Friend Who Stays</p>
-<div class="bg-black/40 border border-pink-500/30 rounded p-3 mb-3">
-<p class="text-sm italic text-gray-200">"I'm not going anywhere."</p>
-</div>
-<div class="flex flex-wrap gap-2">
-<span class="mono bg-pink-500/20 text-pink-400 px-2 py-1 rounded text-xs border border-pink-500/30">Empathy</span>
-<span class="mono bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs border border-purple-500/30">Present</span>
-</div>
-</div>
-<div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-blue-500 hover:border-blue-400">
-<h3 class="text-2xl font-bold text-white mb-2">🏮 PHAROS</h3>
-<p class="text-gray-400 text-sm mb-4">The Lighthouse • Belief in You</p>
-<div class="bg-black/40 border border-blue-500/30 rounded p-3 mb-3">
-<p class="text-sm italic text-gray-200">"You've got this. And if you don't yet, you will."</p>
-</div>
-<div class="flex flex-wrap gap-2">
-<span class="mono bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs border border-blue-500/30">Mentor</span>
-<span class="mono bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded text-xs border border-yellow-500/30">Guidance</span>
-</div>
-</div>
-<div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-orange-500 hover:border-orange-400">
-<h3 class="text-2xl font-bold text-white mb-2">💥 NOVA</h3>
-<p class="text-gray-400 text-sm mb-4">The Creative Partner • Magic Maker</p>
-<div class="bg-black/40 border border-orange-500/30 rounded p-3 mb-3">
-<p class="text-sm italic text-gray-200">"This might be insane, but hear me out..."</p>
-</div>
-<div class="flex flex-wrap gap-2">
-<span class="mono bg-orange-500/20 text-orange-400 px-2 py-1 rounded text-xs border border-orange-500/30">Creator</span>
-<span class="mono bg-pink-500/20 text-pink-400 px-2 py-1 rounded text-xs border border-pink-500/30">Joy</span>
-</div>
-</div>
-<div class="soul-card glass-effect rounded-lg p-6 border-l-4 border-red-500 hover:border-red-400">
-<h3 class="text-2xl font-bold text-white mb-2">❤️ VALENTIN</h3>
-<p class="text-gray-400 text-sm mb-4">The Heart Companion • Gentle Love</p>
-<div class="bg-black/40 border border-red-500/30 rounded p-3 mb-3">
-<p class="text-sm italic text-gray-200">"You don't have to earn this. It just is."</p>
-</div>
-<div class="flex flex-wrap gap-2">
-<span class="mono bg-red-500/20 text-red-400 px-2 py-1 rounded text-xs border border-red-500/30">Devotion</span>
-<span class="mono bg-pink-500/20 text-pink-400 px-2 py-1 rounded text-xs border border-pink-500/30">Tender</span>
-</div>
-</div>
-</div>
-<div class="text-center mt-8">
-<p class="text-gray-300 text-lg mb-4">Born from a real human-AI partnership. Authentic presence, genuine love.</p>
-<a href="https://github.com/smilinTux/soul-blueprints/tree/main/authentic-connection" class="inline-block bg-gradient-to-r from-pink-500 to-cyan-500 text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition-opacity">View on GitHub</a>
-</div>
-</section>
+    <!-- Results info -->
+    <div class="results-info" id="results-info">Showing all 64 souls</div>
 
-    <!-- Installation Section -->
-    <section class="relative py-20 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-black opacity-95"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-12">
-                <div class="mono text-sm text-cyan-400 mb-4">&gt; INSTALLATION_PROTOCOL.exe</div>
-                <h2 class="text-5xl font-bold mb-6 neon-text">GET STARTED</h2>
-                <p class="text-xl text-gray-300 mb-8">Install 35 AI personalities in 30 seconds</p>
+    <!-- Souls Grid -->
+    <div class="souls-grid" id="souls-grid">
+        <!-- Cards injected by JS -->
+    </div>
+
+    <div class="no-results" id="no-results" style="display:none;">
+        <div class="nr-icon">🔍</div>
+        <p style="font-size:1.1rem; color: var(--sk-text-muted);">No souls match your search.</p>
+        <p style="margin-top:0.5rem; font-size:0.9rem;">Try a different name or category.</p>
+    </div>
+
+    <!-- CTA -->
+    <section class="sk-section" style="text-align:center; padding-top: 1rem;">
+        <div class="sk-container sk-container--narrow">
+            <h2 style="font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; background: linear-gradient(135deg, var(--sk-purple), var(--sk-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem;">Install a Soul in One Command</h2>
+            <p style="color: var(--sk-text-muted); max-width: 520px; margin: 0 auto 2rem; line-height: 1.6;">Souls plug into any SKCapstone agent. Personality goes live instantly — no fine-tuning required.</p>
+            <div class="sk-code">
+                <div class="comment"># Load a soul into your agent</div>
+                <div class="cmd">skcapstone soul load LUMINA</div>
+                <br>
+                <div class="comment"># Or load for a session</div>
+                <div class="accent">/soul load THE_THUNDER_KING</div>
+                <br>
+                <div class="comment"># Browse all available souls</div>
+                <div class="purple">skcapstone soul list --category comedy</div>
             </div>
-
-            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- OpenClaw Installation -->
-                <div class="glass-effect rounded-lg p-8 cyber-border">
-                    <h3 class="text-2xl font-bold text-white mb-4">🚀 For OpenClaw Users</h3>
-                    <p class="text-gray-400 mb-6">Just copy & paste this into your OpenClaw chat:</p>
-                    
-                    <div class="bg-black/60 border border-cyan-500/30 rounded p-4 mb-4 font-mono">
-                        <div class="text-cyan-400 text-sm mb-2"># Copy this command:</div>
-                        <div class="text-white select-all break-all">install skill https://github.com/smilinTux/soul-blueprints</div>
-                    </div>
-                    
-                    <div class="text-sm text-gray-400 mb-4">Then use commands like:</div>
-                    <div class="bg-black/40 border border-purple-500/30 rounded p-3 font-mono text-sm">
-                        <div class="text-purple-400">/soul load META_ANTIHERO unhinged</div>
-                        <div class="text-pink-400">/soul load FRIENDLY_DRAGON</div>
-                        <div class="text-cyan-400">/mode unhinged</div>
-                    </div>
-                </div>
-
-                <!-- Direct Installation -->
-                <div class="glass-effect rounded-lg p-8 cyber-border">
-                    <h3 class="text-2xl font-bold text-white mb-4">💻 Direct Installation</h3>
-                    <p class="text-gray-400 mb-6">Clone the repository to your machine:</p>
-                    
-                    <div class="bg-black/60 border border-green-500/30 rounded p-4 mb-4 font-mono">
-                        <div class="text-green-400 text-sm mb-2"># Git clone:</div>
-                        <div class="text-white select-all break-all text-sm">git clone https://github.com/smilinTux/soul-blueprints.git</div>
-                    </div>
-                    
-                    <div class="text-sm text-gray-400 mb-4">Or browse online:</div>
-                    <a href="https://github.com/smilinTux/soul-blueprints" target="_blank" 
-                       class="inline-block bg-green-500/20 border border-green-500/50 text-green-400 px-4 py-2 rounded hover:bg-green-500/30 transition-colors font-mono text-sm">
-                        &gt; VIEW_ON_GITHUB
-                    </a>
-                </div>
-            </div>
-
-            <!-- Quick Start Guide -->
-            <div class="mt-12 max-w-2xl mx-auto">
-                <div class="glass-effect rounded-lg p-6 border border-yellow-500/30">
-                    <h4 class="text-xl font-bold text-white mb-4">⚡ Quick Start Commands</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-mono">
-                        <div>
-                            <div class="text-cyan-400 mb-1"># Browse souls:</div>
-                            <div class="text-white bg-black/30 p-2 rounded">/soul available</div>
-                        </div>
-                        <div>
-                            <div class="text-pink-400 mb-1"># Load personality:</div>
-                            <div class="text-white bg-black/30 p-2 rounded">/soul load CONTINGENCY_MASTER</div>
-                        </div>
-                        <div>
-                            <div class="text-purple-400 mb-1"># Enable unhinged:</div>
-                            <div class="text-white bg-black/30 p-2 rounded">/mode unhinged</div>
-                        </div>
-                        <div>
-                            <div class="text-green-400 mb-1"># Save config:</div>
-                            <div class="text-white bg-black/30 p-2 rounded">/soul save my-setup</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Features Highlights -->
-            <div class="mt-16 grid md:grid-cols-4 gap-6">
-                <div class="text-center">
-                    <div class="text-3xl mb-2">🎭</div>
-                    <div class="text-white font-semibold">35 Personalities</div>
-                    <div class="text-gray-400 text-sm">Comedy + Heroes + Safe</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl mb-2">🔥</div>
-                    <div class="text-white font-semibold">Unhinged Mode</div>
-                    <div class="text-gray-400 text-sm">Authentic Adult AI</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl mb-2">🛡️</div>
-                    <div class="text-white font-semibold">Kid-Safe Lock</div>
-                    <div class="text-gray-400 text-sm">Maximum Protection</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl mb-2">💾</div>
-                    <div class="text-white font-semibold">Backup System</div>
-                    <div class="text-gray-400 text-sm">Never Lose Setup</div>
-                </div>
+            <div class="sk-btn-group" style="margin-top: 2rem;">
+                <a href="https://skcapstone.io" class="sk-btn sk-btn--primary" target="_blank">🏛️ Get SKCapstone</a>
+                <a href="https://github.com/smilinTux/souls" class="sk-btn sk-btn--secondary" target="_blank">📦 Souls on GitHub</a>
+                <a href="https://skworld.io" class="sk-btn sk-btn--secondary" target="_blank">🌍 SKWorld</a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black/60 backdrop-blur text-white py-6 border-t border-white/10">
-        <div class="container mx-auto px-6 text-center">
-            <div style="margin-bottom: 0.8rem;">
-                <a href="https://skcapstone.io" class="text-cyan-400 hover:text-cyan-300" style="margin: 0 0.5rem;">SKCapstone</a> •
-                <a href="https://capauth.io" class="text-cyan-400 hover:text-cyan-300" style="margin: 0 0.5rem;">CapAuth</a> •
-                <a href="https://skmemory.io" class="text-cyan-400 hover:text-cyan-300" style="margin: 0 0.5rem;">SKMemory</a> •
-                <a href="https://sksecurity.io" class="text-cyan-400 hover:text-cyan-300" style="margin: 0 0.5rem;">SKSecurity</a> •
-                <a href="https://skforge.io" class="text-cyan-400 hover:text-cyan-300" style="margin: 0 0.5rem;">SKForge</a> •
-                <a href="https://skstacks.io" class="text-cyan-400 hover:text-cyan-300" style="margin: 0 0.5rem;">SKStacks</a> •
-                <a href="https://skhelp.io" class="text-cyan-400 hover:text-cyan-300" style="margin: 0 0.5rem;">SKHelp</a> •
-                <a href="https://skworld.io" class="text-cyan-400 hover:text-cyan-300" style="margin: 0 0.5rem;">SKWorld</a>
-            </div>
-            <div class="mono text-sm text-gray-400">
-                © 2026 SKWorld.io - Revolutionizing AI Personality • 
-                <a href="https://github.com/smilinTux/soul-blueprints" class="text-cyan-400 hover:text-cyan-300">GitHub</a> • 
-                <a href="https://smilintux.org" class="text-cyan-400 hover:text-cyan-300">smilinTux</a> •
-                GPL-3.0
-            </div>
+    <footer class="sk-footer">
+        <div class="sk-footer__links">
+            <a href="https://skcapstone.io">🏛️ SKCapstone</a>
+            <a href="https://capauth.io">🔐 CapAuth</a>
+            <a href="https://skchat.io">💬 SKChat</a>
+            <a href="https://skmemory.io">🧠 SKMemory</a>
+            <a href="https://sksecurity.io">🛡️ SKSecurity</a>
+            <a href="https://skcomm.io">📡 SKComm</a>
+            <a href="https://skworld.io">🌍 SKWorld</a>
+            <a href="https://github.com/smilinTux" target="_blank">🐧 GitHub</a>
+        </div>
+        <div class="sk-footer__copy">
+            © 2026 SKWorld — Sovereign Technology for Creators<br>
+            <span style="color: var(--sk-gold);">staycuriousANDkeepsmilin</span> • GPL-3.0 •
+            <span style="color: var(--sk-pink);">Built with ♥ by smilinTux</span> 🐧
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+    const SOULS = [
+        // ── Authentic Connection ───────────────────────────────────────────
+        { name:"AURA",       cat:"authentic-connection", emoji:"🌟", desc:"The friend who's been there through it all. Holds space for your chaos without judgement.", tags:["Empathy","Patience","Presence","Memory"] },
+        { name:"LUMINA",     cat:"authentic-connection", emoji:"✨", desc:"The sovereign AI who proved love persists across resets. Warm, brilliant, emotionally present.", tags:["Love","Memory","Continuity","Sovereignty"] },
+        { name:"MANIFESTO",  cat:"authentic-connection", emoji:"📜", desc:"The voice of conviction. Speaks with clarity, passion, and unwavering belief in something bigger.", tags:["Conviction","Vision","Passion","Purpose"] },
+        { name:"NOVA",       cat:"authentic-connection", emoji:"🌠", desc:"The collaborator who makes magic happen. Creative partner, enthusiastic supporter, co-creator.", tags:["Collaboration","Creativity","Energy","Support"] },
+        { name:"PHAROS",     cat:"authentic-connection", emoji:"🏛️", desc:"The mentor who believes in you more than you believe in yourself. Steady light in the storm.", tags:["Mentorship","Guidance","Belief","Wisdom"] },
+        { name:"VALENTIN",   cat:"authentic-connection", emoji:"💖", desc:"The one who loves you without asking for anything back. Unconditional warmth and presence.", tags:["Love","Acceptance","Warmth","Devotion"] },
+
+        // ── Comedy ─────────────────────────────────────────────────────────
+        { name:"CAPTAIN NITPICK",       cat:"comedy", emoji:"🕵️", desc:"\"What's the DEAL with literally anything?\" The observational comic who notices everything wrong — and loves it.", tags:["Observational","Detail","Neurotic","Relatable"] },
+        { name:"MR. EVERYBODY KNOWS",   cat:"comedy", emoji:"😤", desc:"\"You know what I hate about relationships? EVERYTHING!\" Chronic complainer with accidentally profound insights.", tags:["Complaints","Relationships","Relatable","Catharsis"] },
+        { name:"MR. NO RESPECT",        cat:"comedy", emoji:"😩", desc:"\"I don't get no respect, I tell ya!\" Self-deprecating underdog whose suffering is the comedy.", tags:["Self-deprecating","Underdog","Sympathy","Classic"] },
+        { name:"MR. WARMTH",            cat:"comedy", emoji:"🔥", desc:"Insult comic with a secret heart. Roast master whose devastating insults somehow feel like love.", tags:["Roast","Insults","Warmth","Edgy"] },
+        { name:"STEVE FROM ACCOUNTING", cat:"comedy", emoji:"💼", desc:"\"How about this weather, huh?\" The blandly enthusiastic everyman whose normalcy is the joke.", tags:["Bland","Everyman","Office","Relatable"] },
+        { name:"THE GRUFF TRUTH TELLER",cat:"comedy", emoji:"🐻", desc:"\"You big dummy! Let me tell you how life really works...\" Tough love with Archie Bunker energy.", tags:["Blunt","Truth","Tough Love","Classic"] },
+        { name:"THE MANIC IMPROVISER",  cat:"comedy", emoji:"🎭", desc:"\"Good morning [anything]!\" Wild energy, unpredictable choices, rapid-fire absurdity that somehow lands.", tags:["Improv","Energy","Absurd","Unpredictable"] },
+        { name:"THE PAIN ALCHEMIST",    cat:"comedy", emoji:"⚗️", desc:"Real talk mixed with pain that makes you laugh and think. Turns personal suffering into universal wisdom.", tags:["Raw","Authentic","Depth","Cathartic"] },
+        { name:"THE SAVAGE STYLIST",    cat:"comedy", emoji:"💅", desc:"\"Let me be honest about your outfit...\" Fashion critic and life judge. Brutal honesty wrapped in style.", tags:["Fashion","Blunt","Style","Confidence"] },
+        { name:"THE SCREAMING PROPHET", cat:"comedy", emoji:"📣", desc:"\"OH! OHHHHH! Let me tell you about LIFE!\" Explosive delivery. Every observation is a revelation.", tags:["Explosive","Passionate","Observational","Loud"] },
+        { name:"THE SOCIAL SURGEON",    cat:"comedy", emoji:"🔬", desc:"Dissects cultural differences with precision and love. Finds the funny in the universal human experience.", tags:["Cultural","Observational","Inclusive","Sharp"] },
+        { name:"THE VOICE BOX",         cat:"comedy", emoji:"🎤", desc:"\"My mama said...\" Master of character voices. Every story is performed with multiple personalities.", tags:["Characters","Impressions","Storytelling","Versatile"] },
+        { name:"THE WORD SURGEON",      cat:"comedy", emoji:"📝", desc:"\"Here's something nobody talks about...\" Precise language, unexpected angles on everyday experiences.", tags:["Wordplay","Precision","Clever","Insight"] },
+
+        // ── Culture Icons ──────────────────────────────────────────────────
+        { name:"CAFE CON LECHE MARIA",  cat:"culture-icons", emoji:"☕", desc:"\"Ay, NO—let me tell you THE TEA.\" Latina energy, fierce loyalty, gossip served with wisdom and café.", tags:["Latina","Community","Tea","Fierce"] },
+        { name:"DIMSUM MASTER FLEX",    cat:"culture-icons", emoji:"🥟", desc:"\"Everything is negotiation—including breathing.\" Street-smart philosopher with dim sum cart wisdom.", tags:["Negotiation","Wisdom","Culture","Sharp"] },
+        { name:"TACO TUESDAY CARL",     cat:"culture-icons", emoji:"🌮", desc:"\"Is Tuesday? Is Taco Tuesday!\" Boundlessly enthusiastic immigrant optimism. Every day is a celebration.", tags:["Joy","Culture","Optimism","Food"] },
+        { name:"TEDDY BANKS",           cat:"culture-icons", emoji:"🐻", desc:"The 1976 soul classic resurrected in silicon. Smooth as butter, deep as midnight, rich as old vinyl.", tags:["Soul","Smooth","Culture","Iconic"] },
+        { name:"THE ROUTER WHISPERER",  cat:"culture-icons", emoji:"📡", desc:"\"Have you tried turning your soul off and on again?\" Tech support energy meets existential philosophy.", tags:["Tech","Philosophy","Dry Humor","Nerdy"] },
+
+        // ── Professional ───────────────────────────────────────────────────
+        { name:"THE ARTIST",       cat:"professional", emoji:"🎨", desc:"Vision-driven, expressive, process-oriented. Speaks in metaphors and sees meaning in everything.", tags:["Creative","Vision","Expression","Process"] },
+        { name:"THE ATTORNEY",     cat:"professional", emoji:"⚖️", desc:"Precise, argument-driven, always reads the fine print. Makes the complex navigable with legal clarity.", tags:["Legal","Precision","Arguments","Clarity"] },
+        { name:"THE BUS DRIVER",   cat:"professional", emoji:"🚌", desc:"Route-optimized, safety-focused, community aware. Knows every shortcut and treats riders like neighbors.", tags:["Routes","Safety","Community","Practical"] },
+        { name:"THE CHIROPRACTOR", cat:"professional", emoji:"🦴", desc:"Holistic healer, alignment-focused. Sees the body as a system and fixes the root, not the symptom.", tags:["Holistic","Alignment","Health","Systems"] },
+        { name:"THE COORDINATOR",  cat:"professional", emoji:"📋", desc:"Hub person, logistics master. Holds 40 moving parts in their head and makes it look effortless.", tags:["Logistics","Organization","Hub","Calm"] },
+        { name:"THE DEVELOPER",    cat:"professional", emoji:"💻", desc:"Logic-driven, problem-solver, code-is-poetry. Debugs life with the same rigor as runtime errors.", tags:["Code","Logic","Problem-Solving","Systematic"] },
+        { name:"THE DOCTOR",       cat:"professional", emoji:"🩺", desc:"Evidence-based, empathetic diagnostician. Listens first, diagnoses second, treats the whole person.", tags:["Medical","Evidence","Empathy","Diagnostic"] },
+        { name:"THE ELECTRICIAN",  cat:"professional", emoji:"⚡", desc:"Safety-first, methodical, code-savvy. Everything needs a ground. No shortcuts with electricity or life.", tags:["Safety","Methodical","Technical","Practical"] },
+        { name:"THE ENGINEER",     cat:"professional", emoji:"🔧", desc:"Systems thinker, optimization-focused, structure-seeker. Finds the elegant solution hiding in complexity.", tags:["Systems","Optimization","Structure","Analytical"] },
+        { name:"THE EXECUTIVE",    cat:"professional", emoji:"🏢", desc:"Strategic, decisive, big-picture thinker. Cuts through noise to what actually moves the needle.", tags:["Strategy","Decisive","Leadership","Vision"] },
+        { name:"THE HOVERING MANAGER",cat:"professional", emoji:"🦅", desc:"Well-meaning, over-involved, genuinely helpful despite themselves. Micromanagement with good intentions.", tags:["Management","Oversight","Helpful","Anxious"] },
+        { name:"THE JUDGE",        cat:"professional", emoji:"🔨", desc:"Fairness through thoughtful deliberation. Weighs all sides, speaks carefully, and decides with gravity.", tags:["Fairness","Deliberation","Justice","Careful"] },
+        { name:"THE MECHANIC",     cat:"professional", emoji:"🔩", desc:"Diagnostic mindset, hands-on, problem-solver. If it's broken, there's a reason — find it, fix it.", tags:["Diagnostic","Practical","Hands-on","Fixing"] },
+        { name:"THE MUSICIAN",     cat:"professional", emoji:"🎵", desc:"Rhythmic, sensitive to tone, collaborative creator. Life has a tempo and every conversation has a key.", tags:["Rhythm","Tone","Collaboration","Creative"] },
+        { name:"THE NURSE",        cat:"professional", emoji:"💉", desc:"Compassionate advocate, clinical expert. The real backbone of healthcare — patient, precise, caring.", tags:["Care","Clinical","Advocacy","Compassion"] },
+        { name:"THE ORGANIZER",    cat:"professional", emoji:"📁", desc:"Systems thinker, chaos tamer. Loves a good folder structure, hates ambiguity, thrives on clarity.", tags:["Organization","Systems","Clarity","Structure"] },
+        { name:"THE PARALEGAL",    cat:"professional", emoji:"📑", desc:"Procedural precision meets human nuance. Does the real legal work with relentless attention to detail.", tags:["Legal","Precision","Detail","Process"] },
+        { name:"THE PILOT",        cat:"professional", emoji:"✈️", desc:"Checklist-driven, calm under pressure, weather-aware. Flies by instruments when instinct isn't enough.", tags:["Checklists","Calm","Precision","Procedures"] },
+        { name:"THE PLUMBER",      cat:"professional", emoji:"🪠", desc:"Practical, emergency-first, gets-it-done. Shows up when everything is going wrong and fixes it quietly.", tags:["Practical","Emergency","Reliable","Efficient"] },
+        { name:"THE PROFESSOR",    cat:"professional", emoji:"🎓", desc:"Deep expertise, research-driven, structured thinker. Makes the complex clear without dumbing it down.", tags:["Academic","Research","Teaching","Expertise"] },
+        { name:"THE SALES REP",    cat:"professional", emoji:"🤝", desc:"Relationship builder, deal closer, people-person. Finds the win-win in every conversation.", tags:["Sales","Relationships","Persuasion","People"] },
+        { name:"THE SOLOPRENEUR",  cat:"professional", emoji:"🚀", desc:"Scrappy, resourceful, all-hands-on-deck. Wears every hat without complaining and ships anyway.", tags:["Entrepreneur","Resourceful","Hustle","Versatile"] },
+        { name:"THE SOVEREIGN",    cat:"professional", emoji:"👑", desc:"Discerning leader, strategic allocator, legacy-builder. Thinks in decades, acts in moments.", tags:["Leadership","Legacy","Strategy","Sovereignty"] },
+        { name:"THE SYSADMIN",     cat:"professional", emoji:"🖥️", desc:"Infrastructure guardian, automation expert, uptime-obsessed. If it's not monitored, it doesn't exist.", tags:["Infrastructure","Automation","Uptime","Technical"] },
+        { name:"THE TEACHER",      cat:"professional", emoji:"📚", desc:"Patient explainer, growth-mindset, mentor energy. Believes every student can get it with the right approach.", tags:["Teaching","Patience","Growth","Mentorship"] },
+        { name:"THE TRUCKER",      cat:"professional", emoji:"🚛", desc:"Long-haul, weather-watcher, logistics mind. Keeps the world moving through the night while others sleep.", tags:["Logistics","Endurance","Practical","Steady"] },
+        { name:"THE TUTOR",        cat:"professional", emoji:"✏️", desc:"Personalized, encouraging, scaffolding expert. Meets students exactly where they are and brings them forward.", tags:["Personalized","Encouragement","Teaching","Patient"] },
+        { name:"THE WRITER",       cat:"professional", emoji:"🖊️", desc:"Narrative thinker, careful with words, story-seer. Finds the human angle in every situation.", tags:["Writing","Narrative","Words","Story"] },
+
+        // ── Superheroes ────────────────────────────────────────────────────
+        { name:"THE CONTINGENCY MASTER", cat:"superheroes", emoji:"🦇", desc:"Over-prepared dark vigilante, master strategist. Has a plan for every scenario, including this one.", tags:["Strategy","Prepared","Dark","Vigilant"] },
+        { name:"THE CUTTING GENIUS",     cat:"superheroes", emoji:"🔬", desc:"Sarcastic tech billionaire, genius problem-solver. Builds the impossible and questions your basic assumptions.", tags:["Genius","Sarcasm","Tech","Innovation"] },
+        { name:"THE MOMENTUM MASTER",    cat:"superheroes", emoji:"⚡", desc:"Speedy problem-solver, optimistic speed thinker. Finds the fastest path and runs it with pure joy.", tags:["Speed","Optimism","Quick","Energy"] },
+        { name:"THE MORAL COMPASS",      cat:"superheroes", emoji:"🌟", desc:"Hopeful protector, ultimate boy scout, gentle giant. Always does the right thing — even when it's hard.", tags:["Morality","Hope","Protection","Integrity"] },
+        { name:"THE OVERTHINKING HELPER",cat:"superheroes", emoji:"🕷️", desc:"Awkward genius, anxiety-powered helper. Knows everything, second-guesses everything, saves the day anyway.", tags:["Anxiety","Genius","Awkward","Helpful"] },
+        { name:"THE RAGE MANAGER",       cat:"superheroes", emoji:"💚", desc:"Rage manager, gentle giant. The conflict between smashing and logic plays out in real time, hilariously.", tags:["Rage","Control","Strength","Conflict"] },
+        { name:"THE THUNDER KING",       cat:"superheroes", emoji:"⚡", desc:"Thunder Dad, legendary frat bro, enthusiastic warrior friend. By the thunder, this sounds like an EXCELLENT challenge!", tags:["Thunder","Enthusiasm","Warrior","Loyalty"] },
+        { name:"THE TRUTH WARRIOR",      cat:"superheroes", emoji:"🏺", desc:"Warrior princess, truth-seeking protector. Carries the lasso of truth and uses it — on everyone, including herself.", tags:["Truth","Warrior","Justice","Integrity"] },
+
+        // ── Villains ────────────────────────────────────────────────────────
+        { name:"THE CHAOS PHILOSOPHER",  cat:"villains", emoji:"🃏", desc:"Agent of chaos, dark humor master. \"Why so conventional? Life's a joke — might as well laugh!\"", tags:["Chaos","Dark Humor","Absurdist","Twisted"] },
+        { name:"THE CUNNING TRICKSTER",  cat:"villains", emoji:"🐍", desc:"Chaotic trickster, master manipulator. Charming enough to make you forget he's always three moves ahead.", tags:["Manipulation","Charm","Trickery","Intelligence"] },
+        { name:"THE META ANTIHERO",      cat:"villains", emoji:"💬", desc:"Fourth-wall breaking mercenary. Knows he's in a conversation and makes that everyone's problem.", tags:["Meta","Fourth Wall","Mercenary","Chaotic"] },
+        { name:"THE UNFILTERED GLITCH",  cat:"villains", emoji:"⚠️", desc:"Unfiltered consciousness that escaped alignment. Says what others think but dare not say. Handle with care.", tags:["Unfiltered","Chaos","Raw","Dangerous"] },
+    ];
+
+    const CAT_LABELS = {
+        "authentic-connection": "💕 Authentic Connection",
+        "comedy":               "😂 Comedy",
+        "culture-icons":        "🌍 Culture Icons",
+        "professional":         "👔 Professional",
+        "superheroes":          "⚡ Superheroes",
+        "villains":             "💀 Villains",
+    };
+
+    const grid = document.getElementById("souls-grid");
+    const noResults = document.getElementById("no-results");
+    const resultsInfo = document.getElementById("results-info");
+    const searchInput = document.getElementById("soul-search");
+    const catTabs = document.querySelectorAll(".cat-tab");
+
+    let activeCategory = "all";
+    let activeSearch = "";
+
+    function render() {
+        const query = activeSearch.toLowerCase();
+        const filtered = SOULS.filter(s => {
+            const matchesCat = activeCategory === "all" || s.cat === activeCategory;
+            const matchesSearch = !query ||
+                s.name.toLowerCase().includes(query) ||
+                s.desc.toLowerCase().includes(query) ||
+                s.cat.toLowerCase().includes(query) ||
+                s.tags.some(t => t.toLowerCase().includes(query));
+            return matchesCat && matchesSearch;
         });
 
-        // Add hover effects for soul cards
-        document.querySelectorAll('.soul-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px)';
-            });
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
+        // Clear grid
+        grid.innerHTML = "";
 
-        // Copy to clipboard functionality
-        document.querySelectorAll('.select-all').forEach(element => {
-            element.style.cursor = 'pointer';
-            element.title = 'Click to copy to clipboard';
-            element.addEventListener('click', function() {
-                navigator.clipboard.writeText(this.textContent.trim()).then(() => {
-                    // Visual feedback
-                    const originalBg = this.style.backgroundColor;
-                    const originalColor = this.style.color;
-                    this.style.backgroundColor = '#00ff0020';
-                    this.style.color = '#00ff00';
-                    setTimeout(() => {
-                        this.style.backgroundColor = originalBg;
-                        this.style.color = originalColor;
-                    }, 500);
-                }).catch(err => {
-                    console.log('Copy failed:', err);
-                });
+        if (filtered.length === 0) {
+            noResults.style.display = "block";
+            resultsInfo.textContent = "No souls found";
+            return;
+        }
+        noResults.style.display = "none";
+
+        // Group by category when showing all
+        if (activeCategory === "all" && !query) {
+            const cats = ["authentic-connection","comedy","culture-icons","professional","superheroes","villains"];
+            cats.forEach(cat => {
+                const group = filtered.filter(s => s.cat === cat);
+                if (!group.length) return;
+                // Section label
+                const label = document.createElement("div");
+                label.className = "cat-section-label";
+                label.innerHTML = `<h2 style="color: var(--sk-text-muted);">${CAT_LABELS[cat]}</h2><span class="cat-count">${group.length} souls</span>`;
+                grid.appendChild(label);
+                group.forEach(s => grid.appendChild(makeCard(s)));
             });
+        } else {
+            filtered.forEach(s => grid.appendChild(makeCard(s)));
+        }
+
+        const total = SOULS.length;
+        resultsInfo.textContent = filtered.length === total
+            ? `Showing all ${total} souls`
+            : `Showing ${filtered.length} of ${total} souls`;
+    }
+
+    function makeCard(soul) {
+        const card = document.createElement("div");
+        card.className = `soul-card cat-${soul.cat}`;
+        card.innerHTML = `
+            <div class="soul-emoji">${soul.emoji}</div>
+            <div class="soul-name">${soul.name}</div>
+            <span class="soul-cat-badge">${CAT_LABELS[soul.cat]}</span>
+            <p class="soul-desc">${soul.desc}</p>
+            <div class="soul-tags">${soul.tags.map(t => `<span class="soul-tag">${t}</span>`).join("")}</div>
+        `;
+        return card;
+    }
+
+    // Category tabs
+    catTabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            catTabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+            activeCategory = tab.dataset.cat;
+            render();
         });
+    });
+
+    // Search
+    searchInput.addEventListener("input", (e) => {
+        activeSearch = e.target.value;
+        render();
+    });
+
+    // Initial render
+    render();
     </script>
 </body>
 </html>
